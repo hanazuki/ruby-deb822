@@ -5,6 +5,14 @@ require 'forwardable'
 module Deb822
   class Error < StandardError; end
 
+  singleton_class.define_method(:FieldName) do |name|
+    if name.is_a?(FieldName)
+      name
+    else
+      FieldName.new(name)
+    end
+  end
+
   class FieldName
     class InvalidName < Error; end
 
@@ -36,15 +44,7 @@ module Deb822
     end
 
     def eql?(other)
-      other =
-        case other
-        when FieldName, Symbol
-          other
-        else
-          FieldName.new(other)
-        end
-
-      to_sym == other.to_sym
+      to_sym == Deb822::FieldName(other).to_sym
     end
 
     def ==(other)
@@ -74,16 +74,16 @@ module Deb822
     end
 
     def [](key)
-      @hash[FieldName.new(key)]
+      @hash[Deb822::FieldName(key)]
     end
 
     def []=(key, value)
-      @hash[FieldName.new(key)] = value.to_s
+      @hash[Deb822::FieldName(key)] = value.to_s
     end
     alias :store :[]=
 
     def fetch(key, *default, &block)
-      @hash.fetch(FieldName.new(key), *default, &block)
+      @hash.fetch(Deb822::FieldName(key), *default, &block)
     end
 
     def update(other)
