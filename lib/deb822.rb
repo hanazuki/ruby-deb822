@@ -25,7 +25,7 @@ module Deb822
     def initialize(name)
       name = name.to_s unless name.is_a?(String)
 
-      unless /\A#{PATTERN}\z/.match?(name)
+      unless /\A#{PATTERN}\z/o.match?(name)
         raise InvalidName, "Invalid field name: #{name.inspect}"
       end
 
