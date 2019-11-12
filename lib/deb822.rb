@@ -65,6 +65,7 @@ module Deb822
     end
   end
 
+  # Hash-like structure whose keys are FieldName.
   class Paragraph
     extend Enumerable
     extend Forwardable
@@ -93,12 +94,15 @@ module Deb822
       end
     end
 
+    def slice(*keys)
+      Paragraph.new(@hash.slice(*keys.map(&Deb822.method(:FieldName))))
+    end
+
     def_delegators :@hash,
       :each, :each_pair, :each_key, :each_value,
       :empty?, :length, :size,
       :keys, :has_key?, :include?, :key?, :member?,
       :values, :values_at, :has_value?, :value?,
-      :inspect, :to_h, :to_hash
-
+      :inspect, :to_h, :to_hash, :to_proc
   end
 end
