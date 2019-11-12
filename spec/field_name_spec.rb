@@ -6,6 +6,17 @@ describe Deb822::FieldName do
       Deb822::FieldName.new('Standards-Version')
       Deb822::FieldName.new('Checksums-Sha256')
     end
+
+    it 'rejects invalid names' do
+      expect { Deb822::FieldName.new('') }.to raise_error(Deb822::FieldName::InvalidName)
+      expect { Deb822::FieldName.new(' ') }.to raise_error(Deb822::FieldName::InvalidName)
+      expect { Deb822::FieldName.new('A:') }.to raise_error(Deb822::FieldName::InvalidName)
+      expect { Deb822::FieldName.new(':A') }.to raise_error(Deb822::FieldName::InvalidName)
+      expect { Deb822::FieldName.new('#A') }.to raise_error(Deb822::FieldName::InvalidName)
+      expect { Deb822::FieldName.new('-A') }.to raise_error(Deb822::FieldName::InvalidName)
+      expect { Deb822::FieldName.new("\0") }.to raise_error(Deb822::FieldName::InvalidName)
+      expect { Deb822::FieldName.new("Aあ") }.to raise_error(Deb822::FieldName::InvalidName)
+    end
   end
 
   describe '#to_sym' do

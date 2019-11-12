@@ -8,12 +8,15 @@ module Deb822
   class FieldName
     class InvalidName < Error; end
 
-    VALID_PATTERN = /\A[!-9;-~]+\z/
+    # > The field name is composed of US-ASCII characters excluding control characters, space, and colon
+    # > (i.e., characters in the ranges U+0021 ‘!’ through U+0039 ‘9’, and U+003B ‘;’ through U+007E ‘~’, inclusive).
+    # > Field names must not begin with the comment character (U+0023 ‘#’), nor with the hyphen character (U+002D ‘-’).
+    PATTERN = /[!"$-,.-9;-~][!-9;-~]*/
 
     def initialize(name)
       name = name.to_s unless name.is_a?(String)
 
-      unless VALID_PATTERN =~ name
+      unless /\A#{PATTERN}\z/.match?(name)
         raise InvalidName, "Invalid field name: #{name.inspect}"
       end
 
