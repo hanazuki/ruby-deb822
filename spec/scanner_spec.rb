@@ -1,4 +1,4 @@
-require 'deb822/parser'
+require 'deb822/scanner'
 
 describe Deb822::Scanner do
   example 'Multiple paragraphs' do
