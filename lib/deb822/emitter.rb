@@ -1,3 +1,5 @@
+require 'deb822'
+
 module Deb822
   # Low-level generator for deb822 document
   class Emitter

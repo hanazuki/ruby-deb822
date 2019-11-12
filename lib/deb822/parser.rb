@@ -1,3 +1,5 @@
+require 'deb822'
+
 require 'stringio'
 
 module Deb822
