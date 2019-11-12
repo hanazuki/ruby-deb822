@@ -4,6 +4,7 @@ require 'forwardable'
 
 module Deb822
   class Error < StandardError; end
+  class FormatError < Deb822::Error; end
 
   singleton_class.define_method(:FieldName) do |name|
     if name.is_a?(FieldName)
