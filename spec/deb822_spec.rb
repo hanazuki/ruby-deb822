@@ -22,3 +22,7 @@ end
 describe Deb822::Error do
   example { expect(described_class).to be < StandardError }
 end
+
+describe Deb822::InvalidFieldName do
+  example { expect(described_class).to be < Deb822::Error }
+end

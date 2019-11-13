@@ -5,6 +5,7 @@ require 'forwardable'
 module Deb822
   class Error < StandardError; end
   class FormatError < Deb822::Error; end
+  class InvalidFieldName < FormatError; end
 
   singleton_class.define_method(:FieldName) do |name|
     if name.is_a?(FieldName)
@@ -15,7 +16,6 @@ module Deb822
   end
 
   class FieldName
-    class InvalidName < Error; end
 
     # > The field name is composed of US-ASCII characters excluding control characters, space, and colon
     # > (i.e., characters in the ranges U+0021 ‘!’ through U+0039 ‘9’, and U+003B ‘;’ through U+007E ‘~’, inclusive).
@@ -26,7 +26,7 @@ module Deb822
       name = name.to_s unless name.is_a?(String)
 
       unless /\A#{PATTERN}\z/o.match?(name)
-        raise InvalidName, "Invalid field name: #{name.inspect}"
+        raise InvalidFieldName, "Invalid field name: #{name.inspect}"
       end
 
       @sym = FieldName.canonicalize(name).to_sym

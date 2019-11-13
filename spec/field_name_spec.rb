@@ -8,14 +8,14 @@ describe Deb822::FieldName do
     end
 
     it 'rejects invalid names' do
-      expect { Deb822::FieldName.new('') }.to raise_error(Deb822::FieldName::InvalidName)
-      expect { Deb822::FieldName.new(' ') }.to raise_error(Deb822::FieldName::InvalidName)
-      expect { Deb822::FieldName.new('A:') }.to raise_error(Deb822::FieldName::InvalidName)
-      expect { Deb822::FieldName.new(':A') }.to raise_error(Deb822::FieldName::InvalidName)
-      expect { Deb822::FieldName.new('#A') }.to raise_error(Deb822::FieldName::InvalidName)
-      expect { Deb822::FieldName.new('-A') }.to raise_error(Deb822::FieldName::InvalidName)
-      expect { Deb822::FieldName.new("\0") }.to raise_error(Deb822::FieldName::InvalidName)
-      expect { Deb822::FieldName.new("Aあ") }.to raise_error(Deb822::FieldName::InvalidName)
+      expect { Deb822::FieldName.new('') }.to raise_error(Deb822::InvalidFieldName)
+      expect { Deb822::FieldName.new(' ') }.to raise_error(Deb822::InvalidFieldName)
+      expect { Deb822::FieldName.new('A:') }.to raise_error(Deb822::InvalidFieldName)
+      expect { Deb822::FieldName.new(':A') }.to raise_error(Deb822::InvalidFieldName)
+      expect { Deb822::FieldName.new('#A') }.to raise_error(Deb822::InvalidFieldName)
+      expect { Deb822::FieldName.new('-A') }.to raise_error(Deb822::InvalidFieldName)
+      expect { Deb822::FieldName.new("\0") }.to raise_error(Deb822::InvalidFieldName)
+      expect { Deb822::FieldName.new("Aあ") }.to raise_error(Deb822::InvalidFieldName)
     end
   end
 
@@ -48,8 +48,4 @@ describe Deb822::FieldName do
       end
     end
   end
-end
-
-describe Deb822::FieldName::InvalidName do
-  example { expect(described_class).to be < Deb822::Error }
 end
