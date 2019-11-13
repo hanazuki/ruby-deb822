@@ -42,10 +42,10 @@ module Deb822
           # > The lines after the first are called continuation lines and must start with a U+0020 SPACE or a U+0009 TAB.
           # > Empty lines in field values are usually escaped by representing them by a U+0020 SPACE followed
           # > by a dot (U+002E ‘.’).
-          raise FormatError, "Unexpected continuation line: `#{l.chomp}'" unless @in_paragraph
+          raise FormatError, "Unexpected continuation line: #{line.inspect}" unless @in_paragraph
           break [:continuation, $']
         else
-          raise FormatError, "Ill-formed line: `#{l.chomp}'"
+          raise FormatError, "Ill-formed line: #{line.inspect}"
         end
 
         return nil
