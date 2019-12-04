@@ -1,8 +1,6 @@
-require_relative 'lib/deb822/version'
-
 Gem::Specification.new do |spec|
   spec.name          = 'deb822'
-  spec.version       = Deb822::VERSION
+  spec.version       = '0.1.0'
   spec.authors       = ['Kasumi Hanazuki']
   spec.email         = ['kasumi@rollingapple.net']
 

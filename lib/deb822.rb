@@ -1,5 +1,3 @@
-require 'deb822/version'
-
 require 'forwardable'
 
 module Deb822

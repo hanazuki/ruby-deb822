@@ -1,8 +1,4 @@
 describe Deb822 do
-  it 'has a version number' do
-    expect(Deb822::VERSION).not_to be nil
-  end
-
   describe '.FieldName' do
     context 'When given a String' do
       it 'returns FieldName' do
